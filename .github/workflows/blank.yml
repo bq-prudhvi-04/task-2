@@ -34,3 +34,16 @@ jobs:
       - name: Run a docker container
         run: |
           sudo docker run -d -p 1200:80 --name demo demo
+
+
+    # runs terraform workspace 
+      - name: 'Terraform init'
+        run: terraform init
+        
+          
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: terraform plan  
+        
+      - name: Terraform apply
+        run : terraform apply --auto-approve       

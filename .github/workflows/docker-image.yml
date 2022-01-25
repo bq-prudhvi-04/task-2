@@ -16,15 +16,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: hello
-      run:  | 
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+    
     - name: Notify slack fail
       if: success()
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
       uses: voxmedia/github-action-slack-notify-build@v1
       with:
-       channel: gcptraining
+       channel: general
        status: FAILED
        color: danger

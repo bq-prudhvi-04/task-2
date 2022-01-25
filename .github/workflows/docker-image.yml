@@ -14,11 +14,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build
+      id: build
       run: echo "hello "
+    - name: check
+      run: |
+        echo steps.build.outputs
       
     - name: Send mail
-      if: always()
+      if: failure()
       uses: dawidd6/action-send-mail@v2
       with:
     # mail server settings

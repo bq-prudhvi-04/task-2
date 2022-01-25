@@ -19,7 +19,7 @@ jobs:
       run: echo "hello "
     - name: check
       run: |
-        echo steps.build.outputs
+        echo $steps.build.outputs
       
     - name: Send mail
       if: failure()

@@ -21,7 +21,7 @@ jobs:
       env:
         test: ${{join(steps.build.outputs.FOO)}}
       run: |
-        echo test
+        echo $test
       
     - name: Send mail
       if: failure()

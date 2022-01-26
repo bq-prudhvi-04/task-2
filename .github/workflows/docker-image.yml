@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build
       id: build
-      run: echo "::set-output name=FOO::$(sudo docker build .)"
+      run: echo "::set-output name=FOO::$(sudo docker build .)\n"
     - name: check
       env:
         test: ${{join(steps.build.outputs.FOO, '\n')}}

@@ -19,7 +19,7 @@ jobs:
       run: echo "::set-output name=FOO::$(echo "hello")"
     - name: check
       env:
-        test = ${{join(steps.build.outputs.FOO)}}
+        test: ${{join(steps.build.outputs.FOO)}}
       run: |
         echo test
       

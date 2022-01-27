@@ -37,6 +37,7 @@ jobs:
        password: ${{ secrets.EMAIL_PASSWORD }}
     # email subject
        from: ${{ secrets.EMAIL_USERNAME }}
+       sender: devellany
        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} 
     # email body as text
        body: file://test.txt

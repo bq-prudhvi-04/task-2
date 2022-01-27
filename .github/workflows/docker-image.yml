@@ -19,35 +19,19 @@ jobs:
       run: |
          echo "::set-output name=build::$(echo "hello")"
          docker build . >> test.txt
-    - name: check
-      env:
-        test: "${{ steps.build.outputs.build }}"
-      run: |
-        echo $test
-      
+         
     - name: Send mail
       if: success()
-      uses: devellany/send-mail@v1.0.2
+      uses: dawidd6/action-send-mail@v2
       with:
-    # mail server settings
-       host: smtp.gmail.com
-       port: 465
-    # user credentials
-       account: ${{ secrets.EMAIL_USERNAME }}
-       password: ${{ secrets.EMAIL_PASSWORD }}
-    # email subject
-       from: ${{ secrets.EMAIL_USERNAME }}
-       sender: devellany
-       subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} 
-    # email body as text
-       body: file://test.txt
-       #html_body: file://test.html
-       #attachments: test.txt
-       to: prudhvireddy987@gmail.com
-    # from email name
-       
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} and out
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+          to: sarthak.gupta@betaque.com
+          from: nayan
+          attachments: test.txt
+      
     
-    
-    
-       
-       

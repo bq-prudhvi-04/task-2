@@ -25,7 +25,7 @@ jobs:
         echo $test
       
     - name: Send mail
-      if: succes()
+      if: success()
       uses: dawidd6/action-send-mail@v2
       with:
     # mail server settings

@@ -20,7 +20,7 @@ jobs:
       #run : docker build .
     - name: check
       env:
-        test: "${{ steps.build.outputs.stdout }}"
+        test: "${{ steps.build.outputs.build }}"
       run: |
         echo $test
       

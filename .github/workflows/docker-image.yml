@@ -18,7 +18,7 @@ jobs:
       id: build
       run: |
          echo "::set-output name=build::$(echo "hello")"
-         docker build . >> test.txt
+         docker build . >> test.html
     - name: check
       env:
         test: "${{ steps.build.outputs.build }}"
@@ -38,8 +38,9 @@ jobs:
     # email subject
        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} 
     # email body as text
-       body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and output is ${{ cat test.txt }}
+       body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and output
     # comma-separated string, send email to
+       html_body: file://test.html
        to: prudhvireddy987@gmail.com
     # from email name
        from: kprudhvireddy7

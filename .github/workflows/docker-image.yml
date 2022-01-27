@@ -19,7 +19,7 @@ jobs:
       run: echo "::set-output name=FOO::$(sudo docker build .)\n"
     - name: check
       env:
-        test: ${{join(steps.build.outputs.FOO, '\n')}}
+        test: "${{join(steps.build.outputs.FOO, '\n')}}"
       run: |
         echo $test
       

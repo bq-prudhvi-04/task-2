@@ -35,9 +35,9 @@ jobs:
        username: ${{ secrets.EMAIL_USERNAME }}
        password: ${{ secrets.EMAIL_PASSWORD }}
     # email subject
-       subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} and output is  ${{ steps.build.outputs.build }} 
+       subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} 
     # email body as text
-       body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+       body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and output is  ${{ steps.build.outputs.build }} and `echo $test`
     # comma-separated string, send email to
        to: prudhvireddy987@gmail.com
     # from email name

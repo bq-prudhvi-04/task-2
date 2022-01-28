@@ -16,14 +16,14 @@ jobs:
     - uses: actions/checkout@v2
     - name: filter output form email body
       run: |
-          id: tests
-          awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
-          grep Passing: test.txt >> passed-results.txt 
-          sed -i '1d' passed-results.txt
-          echo "::set-output name=passing::$(cat passed-results.txt)"
-          grep Failing: test.txt >> failed-results.txt 
-          sed -i '1d' failed-results.txt
-          echo "::set-output name=failed::$(cat failed-results.txt)"
+        id: tests
+        awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
+        grep Passing: test.txt >> passed-results.txt 
+        sed -i '1d' passed-results.txt
+        echo "::set-output name=passing::$(cat passed-results.txt)"
+        grep Failing: test.txt >> failed-results.txt 
+        sed -i '1d' failed-results.txt
+        echo "::set-output name=failed::$(cat failed-results.txt)"
          
     - name: Send mail
       if: success()

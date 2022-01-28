@@ -29,7 +29,7 @@ jobs:
         
     - name: test
       env:
-        test: ${{ steps.eamil-body.outputs.passing }}
+        test: ${{ steps.tests.outputs.passing }}
       run: |
         echo $test
     - name: Send mail
@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} and out
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and ${{ steps.email-body.outputs.passing }}, ${{ steps.eamil-body.outputs.failed }} 
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and ${{ steps.tests.outputs.passing }}, ${{ steps.eamil-body.outputs.failed }} 
           to: prudhvi.reddy@betaque.com
           from: nayan
           attachments: test.txt

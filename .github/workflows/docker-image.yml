@@ -14,14 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      id: build
+    - name: filter output form email body
       run: |
-         echo "Failing: 2" >> results.txt
-         echo "failed" >> results.txt
-         echo "::set-output name=build::$(cat results.txt)"
-         docker build . >> test.txt
-         cat results.txt
+          id: tests
+          awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
+          grep Passing: test.txt >> passed-results.txt 
+          sed -i '1d' passed-results.txt
+          echo "::set-output name=passing::$(cat passed-results.txt)"
+          grep Failing: test.txt >> failed-results.txt 
+          sed -i '1d' failed-results.txt
+          echo "::set-output name=failed::$(cat failed-results.txt)"
          
     - name: Send mail
       if: success()
@@ -32,7 +34,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} and out
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and ${{ steps.build.outputs.build }}
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and ${{ steps.build.outputs.passing }}, ${{ steps.build.outputs.failed }} 
           to: prudhvi.reddy@betaque.com
           from: nayan
           attachments: test.txt

@@ -14,11 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: tetst
-      run: echo "hello"
-    
     - name: email-body
-      uses: dawidd6/action-send-mail@v2
       id: tests
       run: |
         awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
@@ -30,6 +26,10 @@ jobs:
         grep Failing: test.txt >> failed-results.txt 
         sed -i '1d' failed-results.txt
         echo "::set-output name=failed::$(cat failed-results.txt)"
+        
+    - name: Send mail
+      if: success()
+      uses: dawidd6/action-send-mail@v2
       with:
           server_address: smtp.gmail.com
           server_port: 465
@@ -40,5 +40,6 @@ jobs:
           to: prudhvi.reddy@betaque.com
           from: nayan
           attachments: test.txt
+          
       
     

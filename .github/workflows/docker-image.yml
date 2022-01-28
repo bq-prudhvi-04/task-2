@@ -18,11 +18,12 @@ jobs:
       id: tests
       run: |
         awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
-        grep Passing: test.txt >> passed-results.txt 
+        grep Passing: test.txt >> passed-results.txt
         sed -i '1d' passed-results.txt
         cat passed-results.txt | awk '{print $2,$3}' > passed-test.txt
-        cat passed-test.txt
-        echo "::set-output name=passing::$(cat passed-test.txt)"
+        cat passed-test.txt | tr -d " \t\n\r" > passed.txt
+        cat passed.txt
+        echo "::set-output name=passing::$(cat passed.txt)"
         grep Failing: test.txt >> failed-results.txt 
         sed -i '1d' failed-results.txt
         echo "::set-output name=failed::$(cat failed-results.txt)"

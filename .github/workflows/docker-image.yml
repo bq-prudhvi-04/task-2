@@ -21,6 +21,7 @@ jobs:
          echo "failed" >> results.txt
          echo "::set-output name=build::$(cat results.txt)"
          docker build . >> test.txt
+         cat results.txt
          
     - name: Send mail
       if: success()

@@ -17,7 +17,8 @@ jobs:
     - name: Build
       id: build
       run: |
-         echo "::set-output name=build::$(echo "hello")"
+         echo "Failing: 2" > results.txt
+         echo "::set-output name=build::$(cat results.txt)"
          docker build . >> test.txt
          
     - name: Send mail
@@ -29,8 +30,8 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }} and out
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-          to: sarthak.gupta@betaque.com
+          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} and ${{ steps.build.outputs.build }}
+          to: prudhvi.reddy@betaque.com
           from: nayan
           attachments: test.txt
       

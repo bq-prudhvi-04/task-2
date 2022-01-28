@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: filter output form email body
+      id: tests
       run: |
-        id: tests
         awk  '/1) Webchat Ping/,/(Results)/' test.txt > Failed-tests.txt
         grep Passing: test.txt >> passed-results.txt 
         sed -i '1d' passed-results.txt
